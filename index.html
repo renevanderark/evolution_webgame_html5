@@ -1,0 +1,110 @@
+<!--
+#    Please take this brilliant html5 webgame off my hands
+#    For details see: http://opendatachallenge.kbresearch.nl/
+#    Copyright (C) 2011  R. van der Ark, r.van.der.ark@gmail.com
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<!--[if IE]><script type="text/javascript" src="js/excanvas.js"></script><![endif]-->
+		<script type="text/javascript" src="js/prototype.js"></script>
+		<script type="text/javascript" src="js/constants.js"></script>
+		<script type="text/javascript" src="js/util.js"></script>
+		<script type="text/javascript" src="js/name_gen.js"></script>
+		<script type="text/javascript" src="js/draw_buffer.js"></script>
+		<script type="text/javascript" src="js/texture.js"></script>
+		<script type="text/javascript" src="js/textures.js"></script>
+		<script type="text/javascript" src="js/sprite_set.js"></script>
+		<script type="text/javascript" src="js/sprites.js"></script>
+		<script type="text/javascript" src="js/resource_set.js"></script>
+		<script type="text/javascript" src="js/landscape_tile.js"></script>
+		<script type="text/javascript" src="js/landscape.js"></script>
+		<script type="text/javascript" src="js/path.js"></script>
+		<script type="text/javascript" src="js/building.js"></script>
+		<script type="text/javascript" src="js/individual.js"></script>
+		<script type="text/javascript" src="js/world.js"></script>
+		<script type="text/javascript" src="js/globals.js"></script>
+		<script type="text/javascript" src="js/interface.js"></script>
+	</head>
+	<body onload="start()">
+
+		<div id="man_specs" style="font-family: arial, sans; float: right; width: 600px; display: none;">
+			<table style="font-size: 10pt; background-color: #ffd;">
+				<tbody style="text-align: left">
+					<tr>
+						<th colspan="2" id="name"></th>
+						<th colspan="2">Level: <span id="level"></span></th>
+					</tr>
+					<tr><td style="text-align: center" colspan="4">"<span id="thought"></span>"</td></tr>
+					<tr>
+						<td width="150">Energy:</td>
+						<td width="150">
+							<div id="energy_level" class="energy_level" style="width: 10px; height: 10px; background-color: #bb4; float: left"></div>
+						</td>
+						<td width="150">Diet:</td>
+						<td width="150" id="diet">
+							<div id="diet_fish" class="diet" style="width: 10px; height: 10px; background-color: blue; float: left"></div>
+							<div id="diet_fruit" class="diet" style="width: 10px; height: 10px; background-color: green; float: left"></div>
+							<div id="diet_meat" class="diet" style="width: 10px; height: 10px; background-color: red; float: left"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>Strength:</td><td id="strength"></td>
+						<td>Stamina:</td><td id="stamina"></td>
+					</tr>
+					<tr><td colspan="4"><hr /></td></tr>
+					<tr><th colspan="4">Skills</th></tr>
+					<tr>
+						<td>Fishing:</td><td id="fishing"></td>
+						<td>Gathering:</td><td id="gathering"></td>
+					</tr>
+					<tr>
+						<td>Hunting:</td><td id="hunting"></td>
+					</tr>
+					<tr><td colspan="4"><hr /></td></tr>
+					<tr><th colspan="4">Resources</th></tr>					
+					<tr>
+						<td colspan="2"></td>
+						<td style="text-decoration: underline">Carrying:</td>
+						<td style="text-decoration: underline">At home:</td>
+					</tr>
+					<tr><td colspan="2">Fish:</td><td id="fish_carried"></td><td id="fish_home"></td></tr>
+					<tr><td colspan="2">Fruit:</td><td id="fruit_carried"></td><td id="fruit_home"></td></tr>
+					<tr><td colspan="2">Meat:</td><td id="meat_carried"></td><td id="meat_home"></td></tr>
+				</tbody>
+			</table>
+		</div>
+
+		<table>
+			<tbody><tr>
+				<td><button onmousedown="start_scrolling(0, 1)" onmouseup="stop_scrolling()" onmouseout="stop_scrolling()">o</button></td>
+				<td style="text-align: center"><button onmousedown="start_scrolling(-1, 1)" onmouseup="stop_scrolling()" onmouseout="stop_scrolling()">^</button></td>
+				<td><button onmousedown="start_scrolling(-1, 0)" onmouseup="stop_scrolling()" onmouseout="stop_scrolling()">o</button></td>
+			</tr>
+			<tr>
+				<td><button onmousedown="start_scrolling(1, 1)" onmouseup="stop_scrolling()" onmouseout="stop_scrolling()">&lt;</button></td>
+				<td><canvas id="game" style="border: 1px solid" width="500" height="400" onclick="mouseclick(this, event)" onmousemove="mousemove(this, event)"></canvas></td>
+				<td><button onmousedown="start_scrolling(-1, -1)" onmouseup="stop_scrolling()" onmouseout="stop_scrolling()">&gt;</button></td>
+			</tr>
+			<tr>
+				<td><button onmousedown="start_scrolling(1, 0)" onmouseup="stop_scrolling()" onmouseout="stop_scrolling()">o</button></td>
+				<td style="text-align: center"><button onmousedown="start_scrolling(1, -1)" onmouseup="stop_scrolling()" onmouseout="stop_scrolling()">v</button></td>
+				<td><button onmousedown="start_scrolling(0, -1)" onmouseup="stop_scrolling()" onmouseout="stop_scrolling()">o</button></td>
+			</tr>
+		</tbody></table>
+		<input name="mode" type="radio" checked onclick="set_mode(cDEFAULT_MODE)" />Standard mode
+		<input name="mode" type="radio" onclick="set_mode(cBUILD_HOME)" />Build home
+
+</body></html>
