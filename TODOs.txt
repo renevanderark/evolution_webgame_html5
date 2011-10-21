@@ -1,0 +1,16 @@
+TODO:
+- replace ALL the magic numbers with constants!!
+- skills/resource collections/etc: change structs into arrays := less code!!
+- change as many floating number calculations into integers!
+- saving and loading
+- money
+- build housing
+- marketplace
+
+
+done:
+- hunting game
+- harvesting trees
+- separate resources from landscape tiles
+
+
